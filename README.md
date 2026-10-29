@@ -1,5 +1,6 @@
 # docker-diffSynth-studio
 
+
 一个面向 GPU 的 [DiffSynth-Studio](https://github.com/modelscope/DiffSynth-Studio) Docker 封装。
 
 本仓库不直接包含 DiffSynth-Studio 源码。构建镜像时，`Dockerfile` 会从上游 GitHub 仓库拉取源码，安装训练相关依赖，并将容器默认工作目录设置为 `/opt/DiffSynth-Studio`。

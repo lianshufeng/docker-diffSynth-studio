@@ -1,0 +1,36 @@
+master:
+  push:
+
+    - name: docker-build-and-push-gpu
+      services:
+        - docker
+      docker:
+        image: docker:24-git
+      stages:
+        - name: Build & Push (GPU)
+          script:
+            - |
+              set -e
+
+              echo "===== ENV CHECK ====="
+              echo "CNB_DOCKER_REGISTRY=${CNB_DOCKER_REGISTRY}"
+              echo "CNB_REPO_SLUG_LOWERCASE=${CNB_REPO_SLUG_LOWERCASE}"
+              echo "CNB_COMMIT_SHORT=${CNB_COMMIT_SHORT}"
+              echo "====================="
+
+              docker login "${CNB_DOCKER_REGISTRY}" -u cnb -p "${CNB_TOKEN}"
+
+              IMAGE_GPU="${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:gpu"
+              IMAGE_COMMIT_GPU="${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest"
+
+              export DOCKER_BUILDKIT=1
+              export BUILDKIT_PROGRESS=plain
+
+              docker build --progress=plain \
+                -f .Dockerfile \
+                -t "${IMAGE_GPU}" \
+                -t "${IMAGE_COMMIT_GPU}" \
+                .
+
+              docker push "${IMAGE_GPU}"
+              # docker push "${IMAGE_COMMIT_GPU}"

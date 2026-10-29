@@ -1,0 +1,42 @@
+name: Docker Image CI & Push
+
+on:
+  workflow_dispatch:  # 手动触发
+
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+# cpu image
+      - name: Build and push CPU image
+        working-directory: ./
+        run: |
+          IMAGE_NAME=lianshufeng/llama.cpp:cpu
+          docker build -f .devops/cpu.Dockerfile -t $IMAGE_NAME .
+          docker push $IMAGE_NAME
+      - name: Build and push CPU image
+        working-directory: ./
+        run: |
+          IMAGE_NAME=lianshufeng/llama.cpp:latest
+          docker build -f .devops/cpu.Dockerfile -t $IMAGE_NAME .
+          docker push $IMAGE_NAME
+# gpu image
+      - name: Build and push GPU image
+        working-directory: ./
+        run: |
+          IMAGE_NAME=lianshufeng/llama.cpp:gpu
+          docker build -f .devops/cuda.Dockerfile -t $IMAGE_NAME .
+          docker push $IMAGE_NAME
+

@@ -20,23 +20,30 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
 # cpu image
-      - name: Build and push CPU image
-        working-directory: ./
-        run: |
-          IMAGE_NAME=lianshufeng/llama.cpp:cpu
-          docker build -f .devops/cpu.Dockerfile -t $IMAGE_NAME .
-          docker push $IMAGE_NAME
-      - name: Build and push CPU image
-        working-directory: ./
-        run: |
-          IMAGE_NAME=lianshufeng/llama.cpp:latest
-          docker build -f .devops/cpu.Dockerfile -t $IMAGE_NAME .
-          docker push $IMAGE_NAME
+      # - name: Build and push CPU image
+        # working-directory: ./
+        # run: |
+          # IMAGE_NAME=lianshufeng/diffSynth-studio:cpu
+          # docker build -f .devops/cpu.Dockerfile -t $IMAGE_NAME .
+          # docker push $IMAGE_NAME
+      # - name: Build and push CPU image
+        # working-directory: ./
+        # run: |
+          # IMAGE_NAME=lianshufeng/diffSynth-studio:latest
+          # docker build -f .devops/cpu.Dockerfile -t $IMAGE_NAME .
+          # docker push $IMAGE_NAME
 # gpu image
+      - name: Build and push latest
+        working-directory: ./
+        run: |
+          IMAGE_NAME=lianshufeng/diffSynth-studio:latest
+          docker build -f .Dockerfile -t $IMAGE_NAME .
+          docker push $IMAGE_NAME
+
       - name: Build and push GPU image
         working-directory: ./
         run: |
-          IMAGE_NAME=lianshufeng/llama.cpp:gpu
-          docker build -f .devops/cuda.Dockerfile -t $IMAGE_NAME .
+          IMAGE_NAME=lianshufeng/diffSynth-studio:gpu
+          docker build -f .Dockerfile -t $IMAGE_NAME .
           docker push $IMAGE_NAME
 

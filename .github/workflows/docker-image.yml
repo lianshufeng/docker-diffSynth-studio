@@ -36,14 +36,14 @@ jobs:
       - name: Build and push latest
         working-directory: ./
         run: |
-          IMAGE_NAME=lianshufeng/diffSynth-studio:latest
+          IMAGE_NAME=lianshufeng/diffSynth_studio:latest
           docker build -f .Dockerfile -t $IMAGE_NAME .
           docker push $IMAGE_NAME
 
       - name: Build and push GPU image
         working-directory: ./
         run: |
-          IMAGE_NAME=lianshufeng/diffSynth-studio:gpu
+          IMAGE_NAME=lianshufeng/diffSynth_studio:gpu
           docker build -f .Dockerfile -t $IMAGE_NAME .
           docker push $IMAGE_NAME
 

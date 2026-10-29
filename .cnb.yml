@@ -27,10 +27,10 @@ master:
               export BUILDKIT_PROGRESS=plain
 
               docker build --progress=plain \
-                -f .Dockerfile \
+                -f ./Dockerfile \
                 -t "${IMAGE_GPU}" \
                 -t "${IMAGE_COMMIT_GPU}" \
                 .
 
               docker push "${IMAGE_GPU}"
-              # docker push "${IMAGE_COMMIT_GPU}"
+              docker push "${IMAGE_COMMIT_GPU}"

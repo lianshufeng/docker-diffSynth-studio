@@ -19,5 +19,5 @@ jobs:
           CNB_USERNAME: ${{ secrets.CNB_USERNAME }}
           CNB_TOKEN: ${{ secrets.CNB_TOKEN }}
         run: |
-          git remote add mirror https://${CNB_USERNAME}:${CNB_TOKEN}@cnb.cool/vvllm/diffSynth-studio
+          git remote add mirror https://${CNB_USERNAME}:${CNB_TOKEN}@cnb.cool/vvllm/diffsynth-studio
           git push --mirror mirror

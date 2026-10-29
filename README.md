@@ -77,7 +77,7 @@ docker pull lianshufeng/diffsynth-studio:latest
 
 1. 使用带 CUDA 12.8 和 cuDNN 9 的 PyTorch 开发镜像。
 2. 安装 `git`、编译工具、`ninja`、`ffmpeg`、OpenGL 和 GLib 运行库。
-3. 将上游 DiffSynth-Studio 克隆到 `/opt/DiffSynth-Studio`。
+3. 浅克隆上游 DiffSynth-Studio 到 `/opt/DiffSynth-Studio`，安装后删除 `.git` 元数据以减少镜像体积。
 4. 使用 `DS_BUILD_OPS=0` 和 `[training]` extra 安装上游项目及训练依赖。
 5. 执行 `python -m pip check` 检查 Python 依赖关系。
 6. 将 `/opt/DiffSynth-Studio` 设置为工作目录，并默认进入 Bash。

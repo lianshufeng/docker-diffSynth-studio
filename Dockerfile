@@ -15,11 +15,12 @@ RUN apt-get update \
         libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/modelscope/DiffSynth-Studio.git \
+RUN git clone --depth 1 --single-branch https://github.com/modelscope/DiffSynth-Studio.git \
         /opt/DiffSynth-Studio \
     && DS_BUILD_OPS=0 python -m pip install \
         -e "/opt/DiffSynth-Studio[training]" \
-    && python -m pip check
+    && python -m pip check \
+    && rm -rf /opt/DiffSynth-Studio/.git
 
 WORKDIR /opt/DiffSynth-Studio
 
